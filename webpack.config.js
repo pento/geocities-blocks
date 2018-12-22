@@ -60,6 +60,11 @@ const GutenbergBlocksConfig = {
 					'sass-loader',
 				],
 			},
+			{
+				test: /\.ttf$/,
+				loader: 'url-loader',
+				options: { limit: 10000, mimetype: 'application/octet-stream' },
+			},
 		],
 	},
 	plugins: [

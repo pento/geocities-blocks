@@ -13,6 +13,8 @@ defined( 'ABSPATH' ) || die();
 define( 'GEOCITIES_VERSION', '0.0.1' );
 define( 'GEOCITIES_DEV_MODE', true );
 
+require_once( 'assets/php/visitor-counter.php' );
+
 /**
  * Load up the assets if Gutenberg is active.
  */
@@ -20,6 +22,7 @@ function geocities_initialize() {
 	if ( function_exists( 'register_block_type' ) ) {
 		add_action( 'init', 'geocities_register_block' );
 	}
+	add_action( 'init', 'geocities_gutenberg_scripts' );
 }
 add_action( 'plugins_loaded', 'geocities_initialize' );
 
@@ -31,7 +34,25 @@ function geocities_register_block() {
 		'editor_script' => 'geocities-example-block',
 		'editor_style'  => 'geocities-example-block',
 	) );
-	
+
+	register_meta( 'post', 'geocities-blocks-visitor-count', array(
+		'show_in_rest' => true,
+		'single'       => true,
+		'type'         => 'integer',
+	) );
+
+	register_block_type( 'geocities/visitor-counter', array(
+		'attributes'      => array(
+			'count' => array(
+				'type'    => 'number',
+				'default' => 0,
+			),
+		),
+		'editor_script'   => 'geocities-visitor-counter',
+		'render_callback' => 'render_block_geocities_visitor_counter',
+		'style'           => 'geocities-visitor-counter',
+	) );
+
 	// Register more blocks here.
 }
 
@@ -51,10 +72,22 @@ function geocities_gutenberg_scripts() {
 		array(),
 		geocities_get_file_version( 'build/example-block.css' )
 	);
-	
+
+	wp_register_script(
+		'geocities-visitor-counter',
+		plugins_url( 'build/visitor-counter.js', __FILE__ ),
+		array( 'wp-element', 'wp-blocks', 'wp-components', 'wp-i18n' ),
+		geocities_get_file_version( 'build/visitor-counter.js' )
+	);
+	wp_register_style(
+		'geocities-visitor-counter',
+		plugins_url( 'build/visitor-counter.css', __FILE__ ),
+		array(),
+		geocities_get_file_version( 'build/visitor-counter.css' )
+	);
+
 	// Register more block scripts & styles here.
 }
-add_action( 'enqueue_block_editor_assets', 'geocities_gutenberg_scripts' );
 
 /**
  * Get the file modified time if we're using SCRIPT_DEBUG.
