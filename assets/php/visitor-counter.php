@@ -54,10 +54,11 @@ function render_block_geocities_visitor_counter( $attributes ) {
 				<div class="visitor-counter-border visitor-counter-left-border"></div>
 				<div class="visitor-counter-background-digits">$background</div>
 				<div class="visitor-counter-digits">$count</div>
-				<div hidden><!-- hidden div to fool twenty nineteen when this is the last block --></div>
 			</div>
-		</div>
 HTML;
+
+	// Hidden div to fool Twenty Nineteen, which messes with the bottom margin of the last block on the page.
+	$content .= '<div hidden></div></div>';
 
 	return $content;
 }
