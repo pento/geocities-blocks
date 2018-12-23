@@ -43,9 +43,13 @@ function geocities_register_block() {
 
 	register_block_type( 'geocities/visitor-counter', array(
 		'attributes'      => array(
-			'count' => array(
+			'count'   => array(
 				'type'    => 'number',
 				'default' => 0,
+			),
+			'padding' => array(
+				'type'    => 'number',
+				'default' => 8,
 			),
 		),
 		'editor_script'   => 'geocities-visitor-counter',
@@ -76,7 +80,7 @@ function geocities_gutenberg_scripts() {
 	wp_register_script(
 		'geocities-visitor-counter',
 		plugins_url( 'build/visitor-counter.js', __FILE__ ),
-		array( 'wp-element', 'wp-blocks', 'wp-components', 'wp-i18n' ),
+		array( 'wp-element', 'wp-blocks', 'wp-components', 'wp-i18n', 'wp-editor' ),
 		geocities_get_file_version( 'build/visitor-counter.js' )
 	);
 	wp_register_style(

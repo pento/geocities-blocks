@@ -39,7 +39,8 @@ function render_block_geocities_visitor_counter( $attributes ) {
 	);
 	$alt = sprintf( $alt, $count );
 
-	$count = str_pad( $count, 8, '0', STR_PAD_LEFT );
+	$count = str_pad( $count, $attributes['padding'], '0', STR_PAD_LEFT );
+	$background = str_repeat( '8', strlen( $count ) );
 
 	$content = <<<HTML
 		<div class="wp-block-geocities-visitor-counter">
@@ -49,7 +50,7 @@ function render_block_geocities_visitor_counter( $attributes ) {
 				<div class="visitor-counter-border visitor-counter-right-border"></div>
 				<div class="visitor-counter-border visitor-counter-bottom-border"></div>
 				<div class="visitor-counter-border visitor-counter-left-border"></div>
-				<div class="visitor-counter-background-digits">88888888</div>
+				<div class="visitor-counter-background-digits">$background</div>
 				<div class="visitor-counter-digits">$count</div>
 			</div>
 HTML;
