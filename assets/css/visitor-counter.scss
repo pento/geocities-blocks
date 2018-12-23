@@ -1,8 +1,8 @@
 $visitor-counter-border-width: 5px;
 
 @font-face {
-	font-family: 'Digital-7';
-	src: url( '../fonts/digital-7.ttf' );
+	font-family: 'Digital-7-Mono';
+	src: url( '../fonts/digital-7-mono.ttf' );
 }
 
 .wp-block-geocities-visitor-counter {
@@ -59,7 +59,7 @@ $visitor-counter-border-width: 5px;
 
 	.visitor-counter-background-digits,
 	.visitor-counter-digits {
-		font-family: Digital-7;
+		font-family: Digital-7-Mono;
 		font-size: 25px;
 		font-weight: normal;
 		font-style: normal;

@@ -52,19 +52,9 @@ registerBlockType( 'geocities/visitor-counter', {
 					<div className="visitor-counter-border visitor-counter-right-border"></div>
 					<div className="visitor-counter-border visitor-counter-bottom-border"></div>
 					<div className="visitor-counter-border visitor-counter-left-border"></div>
-					<div className="visitor-counter-background-digits">
-						{
-							'88888888'.split( '' ).map( ( digit, index ) =>
-								<div key={ 'background-digit-' + index }>{ digit }</div>
-							)
-						}
-					</div>
+					<div className="visitor-counter-background-digits">88888888</div>
 					<div className="visitor-counter-digits">
-						{
-							padStart( count, 8, '0' ).split( '' ).map( ( digit, index ) =>
-								<div key={ 'digit-' + index }>{ digit }</div>
-							)
-						}
+						{ padStart( count, 8, '0' ) }
 					</div>
 				</div>
 			</div>
