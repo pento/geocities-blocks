@@ -52,6 +52,12 @@ $visitor-counter-border-width: 5px;
 		clip-path: polygon( 0 0, 100% $visitor-counter-border-width, 100% calc( 100% - #{$visitor-counter-border-width} ), 0 100% );
 	}
 
+	.visitor-counter-background-digits {
+		filter: opacity(25%);
+		position: absolute;
+	}
+
+	.visitor-counter-background-digits,
 	.visitor-counter-digits {
 		font-family: Digital-7;
 		font-size: 25px;
@@ -62,5 +68,10 @@ $visitor-counter-border-width: 5px;
 		letter-spacing: normal;
 		color: #00ff00;
 		text-align: right;
+
+		div {
+			display: inline-block;
+			width: 12px;
+		}
 	}
 }

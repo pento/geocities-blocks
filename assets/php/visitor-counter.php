@@ -31,7 +31,10 @@ function render_block_geocities_visitor_counter( $attributes ) {
 		$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->postmeta SET meta_value=meta_value+1 WHERE meta_key=%s AND post_ID=%d", $meta_key, get_the_ID() ) );
 	}
 
+	$background = str_repeat( '<div>8</div>', 8 );
+
 	$count = str_pad( $count, 8, '0', STR_PAD_LEFT );
+	$count = '<div>' . join( '</div><div>', str_split( $count ) ) . '</div>';
 
 	$content = <<<HTML
 		<div class="wp-block-geocities-visitor-counter">
@@ -39,6 +42,7 @@ function render_block_geocities_visitor_counter( $attributes ) {
 			<div class="visitor-counter-border visitor-counter-right-border"></div>
 			<div class="visitor-counter-border visitor-counter-bottom-border"></div>
 			<div class="visitor-counter-border visitor-counter-left-border"></div>
+			<div class="visitor-counter-background-digits">$background</div>
 			<div class="visitor-counter-digits">$count</div>
 		</div>
 HTML;
