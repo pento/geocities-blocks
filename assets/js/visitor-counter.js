@@ -6,7 +6,7 @@ import { padStart } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 
 /**
@@ -15,7 +15,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import '../css/visitor-counter.scss';
 
 registerBlockType( 'geocities/visitor-counter', {
-	title: __( 'Counter' ),
+	title: __( 'Counter', 'geocities-blocks' ),
 
 	description: __( 'Display the number of visitors to your site.', 'geocities-blocks' ),
 
@@ -35,25 +35,37 @@ registerBlockType( 'geocities/visitor-counter', {
 	edit( { attributes, className } ) {
 		const { count } = attributes;
 
+		const alt = _n(
+			'There has been %d visitor to this page.',
+			'There have been %d visitors to this page.',
+			count,
+			'geocities-blocks'
+		);
+
 		return (
 			<div className={ `${ className }` } key="block">
-				<div className="visitor-counter-border visitor-counter-top-border"></div>
-				<div className="visitor-counter-border visitor-counter-right-border"></div>
-				<div className="visitor-counter-border visitor-counter-bottom-border"></div>
-				<div className="visitor-counter-border visitor-counter-left-border"></div>
-				<div className="visitor-counter-background-digits">
-					{
-						'88888888'.split( '' ).map( ( digit, index ) =>
-							<div key={ 'background-digit-' + index }>{ digit }</div>
-						)
-					}
+				<div className="screen-reader-text">
+					{ sprintf( alt, count ) }
 				</div>
-				<div className="visitor-counter-digits">
-					{
-						padStart( count, 8, '0' ).split( '' ).map( ( digit, index ) =>
-							<div key={ 'digit-' + index }>{ digit }</div>
-						)
-					}
+				<div aria-hidden={ true }>
+					<div className="visitor-counter-border visitor-counter-top-border"></div>
+					<div className="visitor-counter-border visitor-counter-right-border"></div>
+					<div className="visitor-counter-border visitor-counter-bottom-border"></div>
+					<div className="visitor-counter-border visitor-counter-left-border"></div>
+					<div className="visitor-counter-background-digits">
+						{
+							'88888888'.split( '' ).map( ( digit, index ) =>
+								<div key={ 'background-digit-' + index }>{ digit }</div>
+							)
+						}
+					</div>
+					<div className="visitor-counter-digits">
+						{
+							padStart( count, 8, '0' ).split( '' ).map( ( digit, index ) =>
+								<div key={ 'digit-' + index }>{ digit }</div>
+							)
+						}
+					</div>
 				</div>
 			</div>
 		);
